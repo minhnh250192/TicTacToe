@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using TicTacToe.Extensions;
+using TicTacToe.Services;
 
 namespace TicTacToe
 {
@@ -16,6 +18,7 @@ namespace TicTacToe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,12 +35,12 @@ namespace TicTacToe
             }
 
             app.UseStaticFiles();
-
+            app.UseCommunicationMiddleware();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{actionIndex}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
