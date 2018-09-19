@@ -36,9 +36,14 @@ namespace TicTacToe.Controllers
         }
 
         [HttpGet]
-        public IActionResult EmailConfirmation(string email)
+        public async Task<IActionResult> EmailConfirmation(string email)
         {
+            var user = await _userService.GetUserByEmail(email);
+            if (user?.IsEmailConfirmed == true)
+                return RedirectToAction("Index", "GameInvitation", new { email = email });
+
             ViewBag.Email = email;
+    
             return View();
         }
     }

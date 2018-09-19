@@ -62,5 +62,9 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
+    <environment include="Development">
+        <script src="~/app/js/scripts1.js"></script>
+        <script src="~/app/js/scripts2.js"></script>
+    </environment>
 </body>
 </html>
